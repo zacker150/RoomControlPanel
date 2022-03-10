@@ -1,2 +1,1 @@
-Copy-Item *.lua "$Env:ProgramData\Unified Remote\Remotes\Custom\UnifiedRemoteControlPanel"
-Copy-Item ./layout.xml "$Env:ProgramData\Unified Remote\Remotes\Custom\UnifiedRemoteControlPanel"
+Copy-Item * "$Env:ProgramData\Unified Remote\Remotes\Custom\UnifiedRemoteControlPanel" -Exclude .git,  .gitignore, .\deploy.ps1
