@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <layout onVolumeUp="volume_up" onVolumeDown="volume_down" color="#0383DC" >
 	<row>
+		<button text="Lights" onTap="turn_on_lights" />
 		<button text="Monitor" onTap="turn_off_monitor" />
 	</row>
 	<row>
