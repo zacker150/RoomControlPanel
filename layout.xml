@@ -1,8 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <layout onVolumeUp="volume_up" onVolumeDown="volume_down" color="#0383DC" >
 	<row>
-		<button image="lamp_icon.png" onTap="turn_on_lights" />
+		<button image="lamp_icon.png" onTap="toggle_desk_lamp" />
 		<button icon="window" onTap="turn_off_monitor" />
+	</row>
+	<row>
+		<slider text="Ceiling Lights" progress="50" progressmax="100" onchange="update" />
 	</row>
 	<row>
 		<button icon="vdown" onTap="volume_down" />

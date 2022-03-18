@@ -1,12 +1,49 @@
 local log = libs.log
 local ffi = require("ffi");
+local http = require("http");
 
-ffi.cdef[[
-    bool toggle_device(const char* ipaddr);
-]]
+authorization = function()
+    return "Bearer " .. settings.ha_token
+end
 
-local kasa = ffi.load('C:/ProgramData/Unified Remote/Remotes/Custom/UnifiedRemoteControlPanel/kasa_lib')
+print_callback = function (err, resp)
+    print(err)
+    print(resp)
+end
 
-actions.turn_on_lights = function()
+actions.toggle_desk_lamp = function()
     kasa.toggle_device("192.168.0.93")
+    log.trace("Turning off ceiling light")
+    local headers = {}
+    headers["Authorization"] = authorization()
+    headers["Content-Type"] = "application/json"
+    local req = {
+        method = "post",
+        mime = "application/json",
+        url = "http://192.168.0.160:8123/api/services/switch/toggle",
+        headers = headers,
+        content = "{ \"entity_id\": \"switch.bedroom_ceiling_lights\" }"
+    }
+    http.request(req, print_callback)
+end
+
+actions.update = function(progress)
+    print("progress was changed to " .. progress);
+    if (progress == 0) then 
+        -- Turn off the light
+        log.trace("Turning off ceiling light")
+        local headers = {}
+        headers["Authorization"] = authorization()
+        headers["Content-Type"] = "application/json"
+        local req = {
+            method = "post",
+            mime = "application/json",
+            url = "http://192.168.0.160:8123/api/services/light/turn_off",
+            headers = headers,
+            content = "{ \"entity_id\": \"light.bedroom_ceiling_lights\" }"
+        }
+        http.request(req, print_callback)
+    else
+
+    end 
 end

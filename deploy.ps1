@@ -1,1 +1,1 @@
-Copy-Item * "$Env:ProgramData\Unified Remote\Remotes\Custom\UnifiedRemoteControlPanel" -Exclude .git,  .gitignore, .\deploy.ps1
+Copy-Item * "$Env:ProgramData\Unified Remote\Remotes\Custom\UnifiedRemoteControlPanel" -Exclude .git,  .gitignore, .\deploy.ps1, *.md
