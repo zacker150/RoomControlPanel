@@ -30,7 +30,6 @@ actions.toggle_desk_lamp = function()
 end
 
 actions.change_ceiling = function(progress)
-    print("progress was changed to " .. progress);
     if (progress == 0) then 
         -- Turn off the light
         log.trace("Turning off ceiling light")
@@ -52,13 +51,13 @@ actions.change_ceiling = function(progress)
         }
         http.request(req, print_callback)
     else
-        log.trace("Setting ceiling light to " .. progress .. "% brightness")
+        log.info("Setting ceiling light to " .. progress .. "% brightness")
 
         content = {}
         content['entity_id'] = "light.bedroom_ceiling_lights"
         content['brightness_pct'] = progress
         content = data.tojson(content)
-        print(content)
+        -- print(content)
 
         local headers = {}
         headers["Authorization"] = authorization()
@@ -78,15 +77,17 @@ update_progress_bar = function(err, resp)
     if err then
         print(err)
     else
-        log.trace("Response: " .. resp.status .. " " .. resp.reason .. " " .. resp.content)
+        -- log.info("Response: " .. resp.status .. " " .. resp.reason .. " " .. resp.content)
+        log.trace(resp.content)
         local content = data.fromjson(resp.content)
         local brightness = content.attributes.brightness * 100 / 255
-        -- log.trace('Brightness is ' .. brightness)
-        -- layout.slider.progress = brightness
+        -- print('Brightness is ' .. brightness)
+        layout.slider.progress = math.floor(brightness + 0.5)
     end
 end
 
 poll_ceiling_brightness = function()
+    -- print("Polling ceiling brightness")
     local headers = {}
     headers["Authorization"] = authorization()
     local req = {

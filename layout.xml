@@ -5,7 +5,7 @@
 		<button icon="window" onTap="turn_off_monitor" />
 	</row>
 	<row>
-		<slider text="Ceiling Lights" progress="50" progressmax="100" onchange="update" />
+		<slider id='slider' text="Ceiling Lights" progress="50" progressmax="100" onchange="change_ceiling" />
 	</row>
 	<row>
 		<button icon="vdown" onTap="volume_down" />

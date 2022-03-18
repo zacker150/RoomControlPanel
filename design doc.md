@@ -18,5 +18,5 @@ Technical Requirements:
 Approach: 
 * Have the control panel communicate with HA server through HA API
   * CP -> HA -> Lights
-
+* Use timer interupt to update the status.
 
