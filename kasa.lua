@@ -80,9 +80,14 @@ update_progress_bar = function(err, resp)
         -- log.info("Response: " .. resp.status .. " " .. resp.reason .. " " .. resp.content)
         log.trace(resp.content)
         local content = data.fromjson(resp.content)
-        local brightness = content.attributes.brightness * 100 / 255
-        -- print('Brightness is ' .. brightness)
-        layout.slider.progress = math.floor(brightness + 0.5)
+        if content.state == "off" then
+            layout.slider.progress = 0
+        else
+            local brightness = content.attributes.brightness * 100 / 255
+            -- print('Brightness is ' .. brightness)
+            layout.slider.progress = math.floor(brightness + 0.5)
+        end
+
     end
 end
 
