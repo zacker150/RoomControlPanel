@@ -16,18 +16,32 @@ end
 
 actions.toggle_desk_lamp = function()
     log.trace("Turning off desk lamp")
+    toggle_switch("switch.desk_lamp")
+end
+
+actions.toggle_fan = function()
+    log.trace("Turning off desk lamp")
+    toggle_switch("switch.window_blower")
+end
+
+toggle_switch = function(entity_id)
     local headers = {}
     headers["Authorization"] = authorization()
     headers["Content-Type"] = "application/json"
+
+    local content = {}
+    content['entity_id'] = entity_id
+
     local req = {
         method = "post",
         mime = "application/json",
         url = "http://192.168.0.160:8123/api/services/switch/toggle",
         headers = headers,
-        content = "{ \"entity_id\": \"switch.desk_lamp\" }"
+        content = data.tojson(content)
     }
     http.request(req, print_callback)
 end
+
 
 actions.change_ceiling = function(progress)
     if (progress == 0) then 
@@ -37,26 +51,23 @@ actions.change_ceiling = function(progress)
         headers["Authorization"] = authorization()
         headers["Content-Type"] = "application/json"
 
-        content = {}
+        local content = {}
         content['entity_id'] = "light.bedroom_ceiling_lights"
-        content = data.tojson(content)
-
 
         local req = {
             method = "post",
             mime = "application/json",
             url = "http://192.168.0.160:8123/api/services/light/turn_off",
             headers = headers,
-            content = content
+            content = data.tojson(content)
         }
         http.request(req, print_callback)
     else
         log.info("Setting ceiling light to " .. progress .. "% brightness")
 
-        content = {}
+        local content = {}
         content['entity_id'] = "light.bedroom_ceiling_lights"
         content['brightness_pct'] = progress
-        content = data.tojson(content)
         -- print(content)
 
         local headers = {}
@@ -67,7 +78,7 @@ actions.change_ceiling = function(progress)
             mime = "application/json",
             url = "http://192.168.0.160:8123/api/services/light/turn_on",
             headers = headers,
-            content = content
+            content = data.tojson(content)
         }
         http.request(req, print_callback)
     end 
