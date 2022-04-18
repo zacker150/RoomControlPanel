@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <layout onVolumeUp="volume_up" onVolumeDown="volume_down" color="#0383DC" >
 	<row>
-		<button image="lamp_icon.png" onTap="toggle_desk_lamp" />
+		<!--  -->
+		<button image="desk-lamp.png" onTap="toggle_desk_lamp" />
+		<button image="fan.png" onTap="toggle_fan" />
 		<button icon="window" onTap="turn_off_monitor" />
 	</row>
 	<row>
