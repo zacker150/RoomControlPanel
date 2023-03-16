@@ -43,8 +43,8 @@ toggle_switch = function(entity_id)
 end
 
 
-actions.change_ceiling = function(progress)
-    if (progress == 0) then 
+actions.change_ceiling = function(brightness)
+    if (brightness == 0) then 
         -- Turn off the light
         log.trace("Turning off ceiling light")
         local headers = {}
@@ -63,11 +63,11 @@ actions.change_ceiling = function(progress)
         }
         http.request(req, print_callback)
     else
-        log.info("Setting ceiling light to " .. progress .. "% brightness")
+        log.info("Setting ceiling light to " .. brightness .. "% brightness")
 
         local content = {}
         content['entity_id'] = "light.bedroom_ceiling_lights"
-        content['brightness_pct'] = progress
+        content['brightness_pct'] = brightness
         -- print(content)
 
         local headers = {}
